@@ -485,10 +485,11 @@ Contributions are welcome! Please follow these steps:
 
 ## 👥 Authors
 
-**Your Name** - *Data Analyst & Developer*
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+- **Khaled Eissa** - *Data Analyst & Developer*
+- **Elsayed Elgohary** - *Data Analyst & Developer*
+- **Rana Yasser** - *Data Analyst & Developer*
+- **Rahma Nasser** - *Data Analyst & Developer*
+- **Ahmed Shaaban** - *Data Analyst & Developer*
 
 ### Acknowledgments
 - UK Railway dataset providers
