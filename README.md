@@ -465,6 +465,45 @@ LIMIT 10;
 
 ---
 
+## 📅 Project Timeline
+
+### 3-Month Development Timeline
+
+| Phase Name | Week | Focus of the Phase | Deliverables | Team Members |
+|------------|------|-------------------|--------------|--------------|
+| **Phase 1: Data Model & Data Understanding** | Week 1 | Project scope definition, data source identification, initial data exploration, data dictionary creation | Data model design, Project plan | All |
+| **Phase 2: Data Cleaning & Preprocessing** | Week 2-3 | Clean and preprocess data, handle missing values, outlier detection, data type conversions, data validation | Cleaned dataset ready for analysis, Data preprocessing notebook | All |
+| **Phase 3: Exploratory Data Analysis (EDA)** | Week 4-5 | Statistical analysis, pattern identification, correlation analysis, visualization of key metrics | EDA insights and visualizations | All |
+| **Phase 4: Analysis Questions Phase** | Week 6-7 | Determine all possible analysis questions from the dataset, perform deep analysis, answer business questions | Set of analysis questions with answers, Analysis documentation | All |
+| **Phase 5: Feature Engineering** | Week 8 | Create derived features, route analysis, delay pattern analysis, price trend analysis, prepare data for ML | Feature engineering notebook | All |
+| **Phase 6: Forecasting Questions Phase** | Week 9-10 | Predict number of rides for next month, forecast revenue for each day, predict demand on different ticket classes, build and validate ML models | Forecasting models, Visualization plots answering forecasting questions | All |
+| **Phase 7: Visualization Dashboard Development** | Week 11 | Build Tableau visualization dashboard, create interactive charts, design user-friendly interface | Tableau dashboard visualizing all analysis and forecasting results | All |
+| **Phase 8: Final Presentation & Documentation** | Week 12 | Prepare final report and presentation, document all findings, create comprehensive project summary, code documentation | Final report, Project presentation, Complete documentation | All |
+
+### Tools & Technologies by Phase
+
+- **Weeks 1-3**: SQL, Python (pandas, Matplotlib)
+- **Weeks 4-7**: SQL, Python (pandas, Matplotlib, Seaborn)
+- **Weeks 8-10**: Python (scikit-learn, pandas, Matplotlib, Prophet)
+- **Weeks 11-12**: Tableau, SQL, Python (pandas, Matplotlib)
+
+### Timeline Overview
+
+- **Month 1 (Weeks 1-4)**: Data Foundation, Cleaning & Initial Analysis
+- **Month 2 (Weeks 5-8)**: Deep Analysis & Feature Engineering
+- **Month 3 (Weeks 9-12)**: Forecasting, Dashboard & Final Delivery
+
+### Key Deliverables
+
+1. ✅ **Cleaned Dataset** - Preprocessed and ready for analysis
+2. ✅ **Data Preprocessing Notebook** - Jupyter notebook with all cleaning steps
+3. 📊 **Analysis Questions & Answers** - Comprehensive dataset analysis
+4. 🔮 **Forecasting Models** - Ride predictions, revenue forecasts, demand predictions
+5. 📈 **Tableau Dashboard** - Interactive visualization dashboard
+6. 📄 **Final Report & Presentation** - Complete project documentation
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
