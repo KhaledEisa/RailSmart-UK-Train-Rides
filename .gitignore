@@ -1,0 +1,40 @@
+# ── Python ───────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ── Node / web ───────────────────────────────────────────────────────
+node_modules/
+dashboard-web/dist/
+mobile/.expo/
+
+# ── Pretrained model weights (re-downloaded by ultralytics on demand) ─
+yolov8n.pt
+yolov8n-seg.pt
+
+# ── Tableau ──────────────────────────────────────────────────────────
+# Tableau's "My Tableau Repository" was created inside this project folder.
+# These are Tableau's own defaults (Sample - Superstore, World Indicators,
+# shape palettes, logs) — not project files. The workbook itself,
+# "Analysis UK.twb", is tracked and lives in the repo root.
+#
+# To stop Tableau writing here: File > Repository Location, point it at
+# Documents/My Tableau Repository.
+Bookmarks/
+Connectors/
+Datasources/
+Extensions/
+Logs/
+Mapsources/
+OAuthConfigs/
+Services/
+Shapes/
+Workbooks/
+Preferences.tps
+*.twb.bak
+
+# ── OS ───────────────────────────────────────────────────────────────
+Thumbs.db
+.DS_Store

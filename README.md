@@ -48,7 +48,7 @@ UK rail passengers face multiple challenges:
 
 1. **Unpredictable Pricing**: Train ticket prices fluctuate significantly, and passengers often overpay by missing cheaper advance tickets
 2. **Frequent Delays**: Signal failures, weather, and technical issues cause regular delays across the network
-3. **Complex Refund Process**: Many passengers entitled to compensation don't claim it due to complex processes
+3. **Complex Refund Process**: Most passengers entitled to compensation never claim it. In this dataset, **73.2% of entitled passengers did not claim**, leaving £133,568 unclaimed across four months
 4. **Overcrowding**: Peak-time trains are often overcrowded, leading to uncomfortable journeys
 5. **Information Gap**: Passengers lack historical data to make informed decisions about routes and travel times
 6. **Route Optimization**: Limited guidance on which routes or times offer the best value and reliability
@@ -167,26 +167,30 @@ To develop an intelligent, data-driven platform that empowers UK railway passeng
 
 ## 🛠️ Technology Stack
 
+> Items marked **(planned)** are not yet built. Everything else ships in this repository.
+
 ### **Frontend**
-- **Mobile**: Flutter (Android & iOS from single codebase)
-- **Web**: React.js with Next.js framework
-- **UI/UX**: Material Design, Tailwind CSS
-- **Charts**: Chart.js, Plotly, D3.js
+- **Web**: React 18 + Vite + Tailwind CSS (`dashboard-web/`)
+- **3D**: three.js via @react-three/fiber and drei — interactive Intercity 125 model
+- **Mobile**: React Native / Expo *(in development)*
+- **Charts**: Recharts, Plotly
 
 ### **Backend**
-- **API**: Python FastAPI / Node.js Express
-- **Database**: PostgreSQL (via Supabase)
-- **Authentication**: Supabase Auth / Firebase Auth
-- **Hosting**: Vercel (Frontend), Railway/Render (Backend)
+- **Current**: no live API. All three role views read pre-exported JSON in
+  `dashboard-web/public/data/`, generated from the cleaned CSV by `scripts/export_*.py`.
+- **API**: Python FastAPI **(planned)**
+- **Database**: PostgreSQL via Supabase **(planned)**
+- **Authentication**: Supabase Auth **(planned)**
+- **Hosting**: Vercel **(planned)**
 
 ### **Data Analytics**
-- **Language**: Python 3.11+
-- **Libraries**: 
-  - Pandas, NumPy (Data manipulation)
-  - Scikit-learn, XGBoost (Machine Learning)
-  - Prophet, ARIMA (Time-series forecasting)
-  - Matplotlib, Seaborn, Plotly (Visualization)
-  - SQLAlchemy (Database ORM)
+- **Language**: Python 3.10+
+- **Libraries**:
+  - Pandas, NumPy (data manipulation)
+  - Scikit-learn — RandomForest regression and classification
+  - statsmodels — SARIMA time-series forecasting
+  - Matplotlib, Seaborn, Plotly (visualization)
+  - Ultralytics YOLOv8 (platform crowd counting)
 
 ### **Infrastructure**
 - **Database**: Supabase (PostgreSQL) / AWS RDS
@@ -205,13 +209,14 @@ To develop an intelligent, data-driven platform that empowers UK railway passeng
 
 ## 📊 Dataset
 
-### **Source**: UK Railway Journey Data (2023-2024)
+### **Source**: UK Railway Journey Data (2024)
 
 ### **Dataset Statistics**
-- **Total Records**: 31,655 journeys
-- **Date Range**: December 2023 - January 2024
-- **Routes Covered**: 100+ unique station pairs
-- **Features**: 19 columns
+- **Total Records**: 31,653 journeys
+- **Journey Date Range**: 1 January 2024 – 30 April 2024 (121 days)
+- **Purchase Date Range**: 8 December 2023 – 30 April 2024
+- **Routes Covered**: 65 unique station pairs (12 departure stations, 32 destinations)
+- **Features**: 19 raw columns → 42 after feature engineering
 
 ### **Data Dictionary**
 
@@ -222,7 +227,7 @@ To develop an intelligent, data-driven platform that empowers UK railway passeng
 | Time of Purchase | Time of booking | Time |
 | Purchase Type | Online, Station, or other | Categorical |
 | Payment Method | Credit Card, Contactless, etc. | Categorical |
-| Railcard | Type of railcard (Adult, Senior, None) | Categorical |
+| Railcard | Type of railcard (Adult, Senior, Disabled, No Railcard) | Categorical |
 | Ticket Class | Standard or First Class | Categorical |
 | Ticket Type | Advance, Off-Peak, Anytime | Categorical |
 | Price | Ticket price in GBP (£) | Float |
@@ -237,23 +242,30 @@ To develop an intelligent, data-driven platform that empowers UK railway passeng
 | Refund Request | Yes/No | Boolean |
 
 ### **Key Insights from Data**
-- **Delay Rate**: ~35% of journeys experience delays
-- **Top Delay Cause**: Signal failures (42% of delays)
-- **Average Ticket Price**: £38.50
-- **Advance Savings**: Up to 60% cheaper than Anytime tickets
-- **Busiest Route**: London King's Cross ↔ York
-- **Peak Refund Routes**: Routes with >50% delay rates
+
+All figures below are reproduced by `data_analysis_and_cleaning.ipynb` against
+`cleaned_data/railway_cleaned.csv`.
+
+- **Punctuality**: 86.8% on time, 7.2% delayed, 5.9% cancelled — **13.2% disrupted**
+- **Top Delay Cause**: Weather (32.9% of disruptions), then signal failure (23.3%),
+  staffing (19.4%), technical issues (16.9%), traffic (7.5%)
+- **Average Ticket Price**: £23.44 (median £11.00 — a thin First Class tail pulls the mean up)
+- **Advance Savings**: Advance tickets average £17.61 vs £39.20 for Anytime — a saving of
+  £21.59, or **55%**
+- **Busiest Route by Volume**: Manchester Piccadilly → Liverpool Lime Street (4,628 journeys)
+- **Highest Revenue Route**: London Kings Cross → York (£183,193)
+- **Worst Route**: Edinburgh Waverley → London Kings Cross, 0% on time across 51 journeys
+- **Unclaimed Compensation**: of the 4,172 passengers entitled to a refund, only **26.8%
+  claimed** — leaving **£133,568** unclaimed, 18% of total revenue
 
 ---
 
 ## 🚀 Installation
 
 ### Prerequisites
-```bash
-- Node.js 18+ (for web app)
-- Python 3.11+ (for analytics)
-- PostgreSQL 14+ or Supabase account
-- Android Studio (for mobile development)
+```
+- Python 3.10+   (analysis notebook)
+- Node.js 18+    (web dashboard)
 - Git
 ```
 
@@ -263,115 +275,93 @@ git clone https://github.com/yourusername/RailSmart-UK-Train-Rides.git
 cd RailSmart-UK-Train-Rides
 ```
 
-### 2. Database Setup
-
-#### Option A: Using Supabase (Recommended)
+### 2. Run the Analysis
 ```bash
-# 1. Create account at supabase.com
-# 2. Create new project
-# 3. Copy connection string
-# 4. Run migration scripts
+pip install pandas numpy scikit-learn statsmodels matplotlib seaborn plotly jupyter
+
+# Runs end-to-end: cleaning, EDA, models, forecasting, and rewrites
+# cleaned_data/railway_cleaned.csv
+jupyter notebook data_analysis_and_cleaning.ipynb
 ```
 
-#### Option B: Local PostgreSQL
+### 3. Run the Web Dashboard
 ```bash
-# Create database
-createdb railsmart_db
-
-# Import data
-psql railsmart_db < database/schema.sql
-psql railsmart_db < database/import_data.sql
-```
-
-### 3. Backend Setup
-```bash
-cd backend
-pip install -r requirements.txt
-
-# Configure environment variables
-cp .env.example .env
-# Edit .env with your database credentials
-
-# Run migrations
-python manage.py migrate
-
-# Start server
-python main.py
-```
-
-### 4. Web Dashboard Setup
-```bash
-cd web-dashboard
+cd dashboard-web
 npm install
-
-# Configure environment
-cp .env.example .env.local
-# Add your API URL
-
-# Run development server
-npm run dev
+npm run dev          # http://localhost:5173
 ```
 
-### 5. Mobile App Setup
+No login is required — the three role views (Data Engineer, Passenger, Station Manager)
+are selected from the switcher at the top of the page.
+
+### 4. Regenerate the Dashboard Data
+
+Run these after any change to the cleaned dataset. Each writes one JSON file into
+`dashboard-web/public/data/`.
+
 ```bash
-cd mobile-app
-flutter pub get
+python scripts/export_dashboard_data.py   # -> dashboard_data.json
+python scripts/export_passenger_data.py   # -> passenger_data.json
+python scripts/export_manager_data.py     # -> manager_data.json
+python scripts/export_tableau_extract.py  # -> cleaned_data/tableau/*.csv
+python scripts/sync_mobile_data.py        # copy the JSON into the Expo app
+```
 
-# Configure Firebase
-# Add google-services.json (Android)
+### 5. Verify Everything Agrees
 
-# Run app
-flutter run
+The same figures are published in six places (notebook, three dashboard JSONs, Tableau
+extracts, mobile app). This reconciles all of them against the cleaned CSV and exits
+non-zero on any disagreement:
+
+```bash
+python scripts/verify_consistency.py
+```
+
+### 6. Run the Mobile App *(Expo)*
+```bash
+cd mobile
+npx expo start           # scan the QR with Expo Go — phone on the same Wi-Fi
+npx expo start --tunnel  # if the phone is on a different network
+```
+
+### 7. Regenerate the AI Crowd-Counting Demo *(optional)*
+```bash
+pip install ultralytics
+python scripts/make_person_count_demo.py  # -> public/demo/station_count.mp4
 ```
 
 ---
 
 ## 📖 Usage
 
-### Running Analytics
+### The analysis notebook
 
-```python
-# Load and analyze data
-python analytics/data_analysis.py
+`data_analysis_and_cleaning.ipynb` is the single source of truth. It runs top to bottom
+with no manual steps and covers:
 
-# Generate insights
-python analytics/generate_insights.py
+| Section | Contents |
+|---------|----------|
+| 1–7   | Load, explore, missing values, duplicates, outliers, dtypes |
+| 8     | Feature engineering (19 raw → 42 columns) |
+| 9     | Exploratory analysis |
+| 10    | Strategic read-outs: refunds, route reliability, urgency tax, **unclaimed compensation** |
+| 11    | Additional visualisations |
+| 12    | Export cleaned dataset |
+| 13    | Prototype models: fare, delay risk, cancellation, claim propensity |
+| 14    | Forecasting: SARIMA vs naive benchmarks, 30-day projection, class mix |
 
-# Train ML models
-python models/train_delay_predictor.py
-python models/train_price_predictor.py
+### SQL
 
-# Create visualizations
-python visualization/create_dashboards.py
-```
+`sql/Cleaning & Analysis.sql` reproduces the cleaning and the core aggregate queries
+against a relational copy of the raw table.
 
-### API Endpoints
+### Web dashboard
 
-```bash
-# Search routes
-GET /api/routes/search?from=London&to=Manchester
+Three role-based views over the same cleaned dataset:
 
-# Get price predictions
-GET /api/prices/predict?route_id=123
-
-# Check delay probability
-GET /api/delays/predict?route_id=123&date=2024-03-15
-
-# Request refund
-POST /api/refunds/request
-```
-
-### Web Dashboard
-```bash
-# Access at http://localhost:3000
-# Default credentials: demo@railsmart.com / demo123
-```
-
-### Mobile App
-```bash
-# Install APK on Android device
-# Or run via Android Studio emulator
-```
+- **Data Engineer** — KPI cards, regional revenue, seating class mix, sales trend
+- **Passenger** — journey planner, fares and offers, leave-by calculator, station crowding
+- **Station Manager** — fleet status, maintenance queue, delay watch, delay analytics
 
 ---
 
@@ -380,41 +370,59 @@ POST /api/refunds/request
 ### Key Performance Indicators (KPIs)
 
 #### Delay Analysis
-- **Overall On-Time Rate**: 65%
-- **Worst Performing Routes**: Identified 20+ routes with <50% reliability
-- **Peak Delay Times**: 8-9 AM and 5-6 PM
-- **Most Common Delay**: Signal failures (42%)
+- **Overall On-Time Rate**: 86.8% (7.2% delayed, 5.9% cancelled)
+- **Worst Performing Routes**: 4 routes with <50% on-time reliability, out of 48 routes
+  carrying at least 30 journeys
+- **Peak Delay Hour**: the 08:00 departure, at a 33.4% delay rate — roughly 4.6× the
+  network average
+- **Most Common Delay Cause**: Weather (32.9% of disruptions)
 
 #### Pricing Intelligence
-- **Average Advance Savings**: £22 per ticket
-- **Optimal Booking Window**: 14-21 days in advance
-- **Price Variation**: Up to 300% between peak/off-peak
+- **Average Advance Savings**: £21.59 per ticket (£17.61 Advance vs £39.20 Anytime, 55%)
+- **Booking Lead Time**: median **1 day**; 89% of tickets bought within 2 days of travel;
+  no journey in this dataset was booked more than 28 days ahead
+- **Urgency Tax**: last-minute buyers (≤2 days) pay 38.3% more on average — though this
+  compares 28,203 urgent bookings against only 3,450 planned ones
+- **Fare Range**: £1 to £267 (99th percentile £151)
 
 #### Revenue Analysis
-- **Total Dataset Revenue**: £1.2M+
-- **Highest Revenue Route**: London-Edinburgh (£85k)
-- **Most Profitable Ticket Type**: First Class Anytime
+- **Total Dataset Revenue**: £741,921
+- **Highest Revenue Route**: London Kings Cross → York (£183,193)
+- **Highest Total Revenue by Segment**: Advance Standard (£242,388 across 15,797 journeys)
+- **Highest Revenue per Ticket**: Anytime First Class (£77.23 average fare)
 
 #### Customer Behavior
-- **Online Booking**: 65% of all purchases
-- **Contactless Payment**: 48% of transactions
-- **Railcard Usage**: 35% of passengers
+- **Online Booking**: 58.5% of all purchases (41.5% at the station)
+- **Payment Mix**: Credit Card 60.5%, Contactless 34.2%, Debit Card 5.3%
+- **Railcard Usage**: 33.9% of passengers; holders pay 42.9% less on average
+- **Refund Claim Rate**: only 26.8% of entitled passengers ever claim
 
 ### Sample Insights
 
-```sql
--- Most reliable routes for commuters
-SELECT route, on_time_percentage 
-FROM route_reliability 
-WHERE journeys > 100 
-ORDER BY on_time_percentage DESC 
-LIMIT 10;
+These run against a table loaded from `cleaned_data/railway_cleaned.csv`.
 
--- Best money-saving opportunities
-SELECT route, avg_advance_price, avg_anytime_price, savings
-FROM price_analysis
-ORDER BY savings DESC
-LIMIT 10;
+```sql
+-- Most reliable routes for commuters (min. 30 journeys so a handful of trips
+-- cannot put a route at the top of the table)
+SELECT   route,
+         COUNT(*)                                                   AS journeys,
+         ROUND(100.0 * AVG(CASE WHEN journey_status = 'On Time'
+                                THEN 1 ELSE 0 END), 1)              AS on_time_pct
+FROM     railway
+GROUP BY route
+HAVING   COUNT(*) >= 30
+ORDER BY on_time_pct DESC
+LIMIT    10;
+
+-- Compensation nobody claimed: entitled passengers who never filed
+SELECT   journey_status,
+         COUNT(*)                                                   AS entitled,
+         SUM(CASE WHEN refund_request = 'No' THEN 1 ELSE 0 END)     AS never_claimed,
+         ROUND(SUM(CASE WHEN refund_request = 'No'
+                        THEN price ELSE 0 END), 2)                  AS unclaimed_value
+FROM     railway
+WHERE    journey_status <> 'On Time'
+GROUP BY journey_status;
 ```
 
 ---
@@ -427,12 +435,16 @@ LIMIT 10;
 - [x] Initial data analysis
 - [x] Core analytics queries
 
-### Phase 2: Analytics & ML 🔄 (In Progress)
+### Phase 2: Analytics & ML ✅ (Completed)
 - [x] Exploratory data analysis
-- [x] Delay prediction model
-- [ ] Price prediction model
-- [ ] Crowding estimation model
-- [ ] Interactive dashboards
+- [x] Delay prediction model (ROC AUC 0.98, recall 0.66)
+- [x] Price prediction model (MAE £2.75, R² 0.96)
+- [x] Claim propensity model (ROC AUC 0.86, recall 0.74)
+- [x] Time-series forecasting (SARIMA, benchmarked against naive baselines)
+- [x] Crowding estimation via YOLOv8 person counting
+- [x] Interactive web dashboards (3 role views)
+- [ ] Tableau dashboard
+- [ ] Power BI report
 
 ### Phase 3: Backend Development 📅 (Planned)
 - [ ] RESTful API development
@@ -484,7 +496,7 @@ LIMIT 10;
 
 - **Weeks 1-3**: SQL, Python (pandas, Matplotlib)
 - **Weeks 4-7**: SQL, Python (pandas, Matplotlib, Seaborn)
-- **Weeks 8-10**: Python (scikit-learn, pandas, Matplotlib, Prophet)
+- **Weeks 8-10**: Python (scikit-learn, statsmodels, pandas, Matplotlib)
 - **Weeks 11-12**: Tableau, SQL, Python (pandas, Matplotlib)
 
 ### Timeline Overview
@@ -566,7 +578,8 @@ Special thanks to:
 - [UK Railway Industry Documentation](https://www.nationalrail.co.uk/)
 - [Transport API Documentation](https://www.transportapi.com/)
 - [Data Science Best Practices](https://github.com/datasciencemasters)
-- [Flutter Documentation](https://flutter.dev/docs)
+- [statsmodels — SARIMAX](https://www.statsmodels.org/stable/generated/statsmodels.tsa.statespace.sarimax.SARIMAX.html)
+- [Ultralytics YOLOv8](https://docs.ultralytics.com/)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
 
 ---

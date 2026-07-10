@@ -1,0 +1,66 @@
+route,journeys,revenue,on_time_pct,delayed_pct,cancelled_pct,avg_delay_minutes,meets_min_volume
+London Kings Cross - York,3922,183193,91.61,3.34,5.05,0.57,1
+Liverpool Lime Street - London Euston,1097,113299,19.87,71.1,9.02,28.59,1
+London Paddington - Reading,3873,65368,90.91,1.7,7.38,0.66,1
+London Euston - Manchester Piccadilly,712,61004,93.68,0.0,6.32,0.0,1
+London St Pancras - Birmingham New Street,3471,52869,92.13,0.0,7.87,0.0,1
+London Euston - Birmingham New Street,4209,50349,89.24,5.75,5.01,3.33,1
+Manchester Piccadilly - London Euston,345,33860,29.57,69.57,0.87,16.93,1
+Birmingham New Street - London St Pancras,702,19011,92.74,0.0,7.26,0.0,1
+Manchester Piccadilly - Liverpool Lime Street,4628,17310,86.08,7.65,6.27,5.48,1
+Manchester Piccadilly - London Paddington,144,16432,94.44,0.0,5.56,0.0,1
+London Paddington - Oxford,485,12859,87.01,0.0,12.99,0.0,1
+Liverpool Lime Street - Manchester Piccadilly,3002,11950,92.31,3.56,4.13,0.81,1
+York - Peterborough,242,10764,90.91,0.0,9.09,0.0,1
+London Kings Cross - Liverpool Lime Street,144,10373,99.31,0.0,0.69,0.0,1
+London St Pancras - Leicester,337,7354,95.25,0.0,4.75,0.0,1
+London Kings Cross - Edinburgh Waverley,163,6084,94.48,0.0,5.52,0.0,1
+York - Edinburgh,138,3716,97.1,0.0,2.9,0.0,1
+Birmingham New Street - London Euston,125,3594,60.8,35.2,4.0,11.42,1
+Reading - Swindon,228,3548,94.74,0.0,5.26,0.0,1
+Liverpool Lime Street - London St Pancras,31,3248,90.32,0.0,9.68,0.0,1
+Oxford - Bristol Temple Meads,144,2859,85.42,10.42,4.17,2.09,1
+London Paddington - Manchester Piccadilly,30,2818,93.33,0.0,6.67,0.0,1
+London St Pancras - Wolverhampton,83,2734,98.8,0.0,1.2,0.0,1
+Liverpool Lime Street - London Paddington,27,2699,51.85,48.15,0.0,18.48,0
+Birmingham New Street - Manchester Piccadilly,224,2507,49.11,42.86,8.04,12.17,1
+London Paddington - Liverpool Lime Street,44,2454,100.0,0.0,0.0,0.0,1
+Reading - London Paddington,148,2416,96.62,0.0,3.38,0.0,1
+Birmingham New Street - Reading,47,2212,93.62,0.0,6.38,0.0,1
+Manchester Piccadilly - Nottingham,158,2208,83.54,8.86,7.59,5.16,1
+Birmingham New Street - Nuneaton,219,2184,93.61,0.0,6.39,0.0,1
+Edinburgh Waverley - London Kings Cross,51,2093,0.0,100.0,0.0,15.27,1
+York - Durham,258,1983,87.21,6.2,6.59,2.02,1
+Birmingham New Street - Liverpool Lime Street,175,1790,97.71,0.0,2.29,0.0,1
+Birmingham New Street - Tamworth,227,1726,92.51,0.0,7.49,0.0,1
+Manchester Piccadilly - London St Pancras,16,1593,100.0,0.0,0.0,0.0,0
+Reading - Birmingham New Street,32,1577,100.0,0.0,0.0,0.0,1
+Liverpool Lime Street - Crewe,193,1563,97.41,0.0,2.59,0.0,1
+Reading - Liverpool Lime Street,16,1506,100.0,0.0,0.0,0.0,0
+Manchester Piccadilly - Leeds,142,1471,54.23,45.07,0.7,65.24,1
+Manchester Piccadilly - London Kings Cross,16,1444,100.0,0.0,0.0,0.0,0
+Birmingham New Street - Stafford,190,1365,97.89,0.0,2.11,0.0,1
+Birmingham New Street - York,65,1347,100.0,0.0,0.0,0.0,1
+York - Doncaster,211,1311,81.99,12.8,5.21,9.3,1
+Liverpool Lime Street - Leeds,96,1165,100.0,0.0,0.0,0.0,1
+Liverpool Lime Street - Sheffield,101,914,99.01,0.0,0.99,0.0,1
+Reading - Oxford,122,868,95.08,0.0,4.92,0.0,1
+York - Birmingham New Street,16,819,87.5,0.0,12.5,0.0,0
+Birmingham New Street - Edinburgh,16,798,100.0,0.0,0.0,0.0,0
+Manchester Piccadilly - Sheffield,171,731,99.42,0.0,0.58,0.0,1
+Birmingham New Street - London Paddington,32,718,87.5,0.0,12.5,0.0,1
+London Euston - York,17,651,0.0,100.0,0.0,36.35,0
+Birmingham New Street - London Kings Cross,17,535,100.0,0.0,0.0,0.0,0
+Liverpool Lime Street - Birmingham New Street,14,436,85.71,0.0,14.29,0.0,0
+York - Edinburgh Waverley,15,404,100.0,0.0,0.0,0.0,0
+London Paddington - London Waterloo,68,343,91.18,0.0,8.82,0.0,1
+York - Liverpool Lime Street,15,323,93.33,0.0,6.67,0.0,0
+Birmingham New Street - Coventry,65,269,92.31,0.0,7.69,0.0,1
+Reading - Didcot,48,212,87.5,0.0,12.5,0.0,1
+Manchester Piccadilly - York,15,212,100.0,0.0,0.0,0.0,0
+York - Wakefield,15,148,0.0,100.0,0.0,12.27,0
+Bristol Temple Meads - Cardiff Central,16,98,100.0,0.0,0.0,0.0,0
+York - Leeds,17,78,100.0,0.0,0.0,0.0,0
+Birmingham New Street - Wolverhampton,32,60,90.62,0.0,9.38,0.0,1
+Manchester Piccadilly - Warrington,15,53,100.0,0.0,0.0,0.0,0
+London Euston - Oxford,16,41,100.0,0.0,0.0,0.0,0

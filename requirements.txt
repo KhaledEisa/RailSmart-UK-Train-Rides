@@ -1,0 +1,14 @@
+# Analysis notebook: data_analysis_and_cleaning.ipynb
+pandas>=2.0
+numpy>=1.24
+scipy>=1.10
+scikit-learn>=1.3
+statsmodels>=0.14        # SARIMA forecasting (section 14)
+matplotlib>=3.7
+seaborn>=0.13
+plotly>=5.18
+jupyter>=1.0
+
+# scripts/make_person_count_demo.py — YOLOv8 platform crowd counting.
+# Heavy (pulls in torch); install only if you need to regenerate the demo clip.
+# ultralytics>=8.0

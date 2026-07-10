@@ -1,0 +1,84 @@
+HOW TO USE THIS SKILLS BASE (quick cheat sheet for Khaled)
+===========================================================
+
+What this folder is: five reference "skills" that capture how the company
+builds software. Each one is a dense checklist/decision-tree file written
+so Claude can apply the rules directly when helping you work.
+
+FIRST, THE IMPORTANT NOTE ABOUT 00-CORE
+---------------------------------------
+00-core is the foundation. Every other skill extends it and constantly
+points back to it (its principles, testing rules, security baseline, git
+workflow). So it's relevant to almost EVERYTHING you do, not just the
+triggers listed under it below. When in doubt, include 00-core alongside
+whichever domain skill you're using.
+
+HOW TO ACTUALLY USE THESE WITH CLAUDE (applies to all five)
+-----------------------------------------------------------
+- In Claude Code (this tool): just mention the file when starting work,
+  e.g. "follow sw-eng-company-skills/00-core/00-core-SKILL.md" — Claude
+  reads it from disk. Nothing loads automatically right now because these
+  live in a plain folder. If you want automatic loading later, they can be
+  copied into a .claude/skills/ folder so Claude picks them up on its own
+  when the topic matches — ask Claude to set that up when you're ready.
+- In the Claude app / website: attach the file or paste its contents at
+  the start of the chat, then ask your question.
+- You don't need special wording. "Use the mobile skill" or pointing at
+  the file path both work.
+
+THE FIVE SKILLS
+---------------
+
+00-core — How we build everything: code principles, design patterns,
+architecture choices, testing rules, security basics, git workflow.
+Use it when:
+- Starting ANY new project (client or your own SaaS)
+- Making a big architecture or "which pattern here?" decision
+- Reviewing code, setting up tests, or writing an ADR (decision record)
+- Anything involving auth, secrets, or security checklists
+
+01-mobile — Native and cross-platform apps, including hardware companion
+apps like Echosense (Bluetooth, sensors, Raspberry Pi devices).
+Use it when:
+- Choosing Flutter vs React Native vs native for a new app
+- Working on Bluetooth pairing, background sensors, or offline sync
+- Preparing an App Store / Play Store submission (or handling a rejection)
+- Planning mobile testing or picking a state-management approach
+
+02-web — Custom web apps (SaaS, dashboards, sites) AND WordPress work.
+Use it when:
+- Choosing a web framework, rendering strategy, or API style
+- Deciding "should this client get WordPress or a custom build?"
+- Vetting a WordPress plugin or writing a custom one
+- A WordPress site is slow, or you're planning its update/maintenance plan
+- Setting web performance budgets or planning web testing
+
+03-ai-ml — Building and shipping ML/AI/NLP models, including on-device
+inference (the quantized-YOLO-on-Hailo setup).
+Use it when:
+- A project has any "AI/smart/automatic" feature to scope (start here
+  BEFORE choosing a model — it may talk you out of one)
+- Choosing between an LLM API, fine-tuning, or training something
+- Setting up data pipelines, experiment tracking, or model deployment
+- Quantizing/compiling a model for the Pi/Hailo or a phone
+- A model's accuracy drops in production, or drift alerts fire
+- Handling camera/audio training data from real users (privacy rules)
+
+04-delivery — Everything after the code is written: CI/CD, hosting,
+monitoring, incidents, backups, maintenance contracts, bug triage.
+Use it when:
+- Setting up a pipeline, choosing hosting, or planning environments
+- Something is DOWN or broken in production (incident + rollback steps)
+- Designing backups or scoping a client maintenance contract
+- Triaging a post-launch bug and deciding how fast it must be fixed
+
+05-BUSINESS — NOT BUILT YET
+---------------------------
+The 05-business folder is still an empty placeholder (contracts, IP,
+pricing, scoping). Skip it for now. Several skills point at it for
+contract details — those pointers will start working once it's written.
+
+Tip: the fastest habit — at the start of any work session, tell Claude
+which situation you're in (e.g. "new client wants a WordPress site with
+a booking feature") and to use this folder. It will pick the right
+skill(s) and apply 00-core automatically.

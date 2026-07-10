@@ -2,15 +2,21 @@
 UK RAILWAY DATASET - CLEANING SUMMARY
 ================================================================================
 
-Original records: 31,653
-Total features: 35
-Date range: 2024-01-01 00:00:00 to 2024-04-30 00:00:00
+Records: 31,653
+Features after engineering: 42
+Journey date range: 2024-01-01 00:00:00 to 2024-04-30 00:00:00
+Purchase date range: 2023-12-08 00:00:00 to 2024-04-30 00:00:00
 
 ================================================================================
 KEY STATISTICS
 ================================================================================
 Total revenue: £741,921.00
 Average ticket price: £23.44
-On-time journeys: 27,481 (86.8%)
+Median ticket price: £11.00
+On Time journeys: 27,481 (86.8%)
 Delayed journeys: 2,292 (7.2%)
+Cancelled journeys: 1,880 (5.9%)
+Disrupted (delayed + cancelled): 4,172 (13.2%)
 Refund requests: 1,118 (3.5%)
+Claim rate among disrupted: 26.8%
+Unclaimed compensation value: £133,568.00

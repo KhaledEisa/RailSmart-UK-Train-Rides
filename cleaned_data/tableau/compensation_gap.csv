@@ -1,0 +1,5 @@
+journey_status,purchase_channel,entitled,claimed,claimed_value,unclaimed_value,never_claimed,claim_rate_pct
+Cancelled,Online,1222,367,7035,15485,855,30.03
+Cancelled,Station,658,205,5502,17434,453,31.16
+Delayed,Online,207,42,1179,2415,165,20.29
+Delayed,Station,2085,504,24986,98234,1581,24.17
