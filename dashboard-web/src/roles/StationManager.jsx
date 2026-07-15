@@ -32,6 +32,7 @@ import {
   SectionHeader,
   PageHeader,
   LoadingState,
+  ErrorState,
 } from '../components/ui.jsx'
 
 const STATUS_META = {
@@ -44,7 +45,7 @@ const SEV = { High: status.critical, Medium: status.warning, Low: status.neutral
 const FILTERS = ['All', 'In Service', 'Delayed', 'Maintenance']
 
 export default function StationManager() {
-  const { data } = useJson('data/manager_data.json')
+  const { data, error } = useJson('data/manager_data.json')
   const [filter, setFilter] = useState('All')
   const [sortKey, setSortKey] = useState('onTime')
   const [sortDir, setSortDir] = useState('asc')
@@ -61,6 +62,7 @@ export default function StationManager() {
     })
   }, [data, filter, sortKey, sortDir])
 
+  if (error) return <ErrorState error={error} />
   if (!data) return <LoadingState label="Loading operations data…" />
 
   const { maintenance, delayReasons, delayWatch, statusSummary, delayByTimeOfDay, routeReliability } = data
@@ -129,6 +131,10 @@ export default function StationManager() {
             }
           />
           <GlassCard className="overflow-hidden">
+            {/* Horizontal scroll on narrow phones so the four columns keep a
+                readable width instead of crushing the status badges. */}
+            <div className="overflow-x-auto">
+            <div className="min-w-[520px]">
             <div className="grid grid-cols-[1.1fr_1.4fr_0.8fr_0.8fr] gap-2 border-b border-white/10 bg-white/[0.03] px-4 py-2 text-[11px] uppercase tracking-wide text-white/45">
               <button type="button" onClick={() => toggleSort('id')} className="flex items-center gap-1 text-left hover:text-white/70">
                 Unit <ArrowUpDown size={11} className={sortKey === 'id' ? 'opacity-100' : 'opacity-30'} />
@@ -170,6 +176,8 @@ export default function StationManager() {
               {fleetView.length === 0 && (
                 <div className="px-4 py-8 text-center text-sm text-white/40">No units match this filter.</div>
               )}
+            </div>
+            </div>
             </div>
           </GlassCard>
         </div>

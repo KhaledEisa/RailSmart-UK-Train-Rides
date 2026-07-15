@@ -22,6 +22,7 @@ import {
   SectionHeader,
   PageHeader,
   LoadingState,
+  ErrorState,
 } from '../components/ui.jsx'
 
 const toMin = (hhmm) => {
@@ -63,7 +64,7 @@ function Ring({ pct, color, size = 66, label }) {
 }
 
 export default function UserSite() {
-  const { data } = useJson('data/passenger_data.json')
+  const { data, error } = useJson('data/passenger_data.json')
   const [now, setNow] = useState(() => new Date())
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 30000)
@@ -109,6 +110,7 @@ export default function UserSite() {
   }
   const setTo = setToSel
 
+  if (error) return <ErrorState error={error} />
   if (!data) return <LoadingState label="Loading passenger data…" />
 
   const route = data.routes[`${from}->${to}`]
